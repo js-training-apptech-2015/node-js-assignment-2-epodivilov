@@ -1,0 +1,4 @@
+{
+  "dbUrl": "mongodb://10.44.21.138/node-js-assignment-2-epodivilov",
+  "port": 8080
+}

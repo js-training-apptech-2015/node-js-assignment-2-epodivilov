@@ -1,0 +1,25 @@
+{
+  "name": "node-js-assignment-2-epodivilov",
+  "version": "0.1.0",
+  "description": "Using Node.js, express, MongoDB and Mongoose do",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/js-training-apptech-2015/node-js-assignment-2-epodivilov.git"
+  },
+  "author": "Evgeniy Podivilov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/js-training-apptech-2015/node-js-assignment-2-epodivilov/issues"
+  },
+  "homepage": "https://github.com/js-training-apptech-2015/node-js-assignment-2-epodivilov#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "ip": "^1.1.0",
+    "mongoose": "^4.3.7"
+  }
+}
