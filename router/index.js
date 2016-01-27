@@ -43,7 +43,7 @@ router.post('/games', function (req, res, next) {
     });
 
     newGame.save(function(err, model) {
-        if (err) next('Bad request!');
+        if (err) next('Bad request! ' + err);
         Game.findOne(model, '-_id -__v', function (err,data) {
             res.send(data);
         });
@@ -58,7 +58,8 @@ router.put('/games/:token', function (req, res, next) {
             case 2: update = {$set: { field2: req.body.position}}; break;
         }
 
-        Game.update({token:req.params.token}, update, function (err,data) {
+        Game.update({token:req.params.token}, update, {runValidators:true}, function (err,data) {
+            if (err) next('Bad request! ' + err);
             Game.findOne({token:req.params.token}, '-_id -__v', function (err,data) {
                 res.send(data);
             });
