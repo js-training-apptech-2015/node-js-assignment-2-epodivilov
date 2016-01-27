@@ -3,14 +3,31 @@ var router = express.Router();
 var Game = require('../models/Game');
 var Utils = require('../utils');
 
+function checkGameOver(fieldPlayer1, fieldPlayer2) {
+    var winCombinations = [7,56,448,73,146,252,273,84];
+    var result;
+    for (var i = 0; i < winCombinations.length; i++) {
+        if (fieldPlayer1 == winCombinations[i]) {
+            result = 'first-player-wins';
+        } else if (fieldPlayer2 == winCombinations[i]) {
+            result = 'second-player-wins';
+        } if ((fieldPlayer1|fieldPlayer2) == 511) {
+            result = 'Tie';
+        }
+    }
+
+    return result;
+
+}
 
 router.get('/', function (req, res, next) {
     res.end('end');
 });
 
 router.get('/games', function (req, res, next) {
-    if(req.query && Utils.isValidQuery(req.query)) {
+    if(req.query && Utils.isValidQuery(req.query, Game)) {
         Game.find(req.query, '-_id -__v', function (err,data) {
+            if (err) return next('Bad request! ' + err);
             if (data.length) {
                 res.send(data);
             } else {
@@ -18,55 +35,81 @@ router.get('/games', function (req, res, next) {
             }
         });
     } else {
-        next('Error! ' + Object.keys(req.query) + ' not found');
+        return next('Error! Bad query!');
     }
 });
 
 router.get('/games/:token', function (req, res, next) {
-    if (req.params.token.length == 32) {
-        Game.findOne({token:req.params.token}, '-_id -__v', function (err,data) {
+    Game.findOne({token:req.params.token}, '-_id -__v', function (err,data) {
+        if (err) return next('Bad request! ' + err);
+        if (data) {
             res.send(data);
-        });
-    } else {
-        res.send('Token is not valid!');
-    }
+        } else {
+            res.send('Games not found');
+        }
+    });
 });
 
 router.post('/games', function (req, res, next) {
     var newGame = new Game({
-        token: Utils.generateToken(32),
-        type: req.body.type,
         field1: '0',
         field2: '0',
+        group: req.body.group || 'default',
         state: 'first-player-turn',
-        group: req.body.group || 'default'
+        token: Utils.generateToken(32),
+        type: req.body.type
     });
 
     newGame.save(function(err, model) {
-        if (err) next('Bad request! ' + err);
+        if (err) return next('Bad request! ' + err);
         Game.findOne(model, '-_id -__v', function (err,data) {
-            res.send(data);
+            if (err) return next('Bad request! ' + err);
+            res.status(201).send(data);
         });
     })
 });
 
 router.put('/games/:token', function (req, res, next) {
-    if (req.params.token.length == 32) {
-        var update;
-        switch (req.body.player) {
-            case 1: update = {$set: { field1: req.body.position}}; break;
-            case 2: update = {$set: { field2: req.body.position}}; break;
-        }
+    if ((req.body.position >= 0 && req.body.position <= 8) && (req.body.player == 1 || req.body.player == 2)) {
+        Game.findOne({token:req.params.token}, function (err,data) {
+            if (err) return next('Bad request! ' + err);
 
-        Game.update({token:req.params.token}, update, {runValidators:true}, function (err,data) {
-            if (err) next('Bad request! ' + err);
-            Game.findOne({token:req.params.token}, '-_id -__v', function (err,data) {
-                res.send(data);
-            });
+            var state = (req.body.player == 2) ? 'second-player-turn' : 'first-player-turn';
+
+            if (state != data.state) {
+                return next('Wrong turn!');
+            } else {
+                state = (req.body.player == 1) ? 'second-player-turn' : 'first-player-turn';
+            }
+
+            var freeField = Utils.createBinaryString(data.field1|data.field2).split('').reverse();
+
+            if (freeField[req.body.position] != 1) {
+                var newField = Utils.createBinaryString(data['field' + req.body.player]).split('').reverse();
+                newField[req.body.position] = '1';
+                data['field' + req.body.player] = parseInt(newField.reverse().join(''),2);
+
+                if (checkGameOver(data.field1, data.field2)) {
+                    state = checkGameOver(data.field1, data.field2);
+                }
+
+                data.state = state;
+
+                data.save(function(err, model) {
+                    if (err) return next('Bad request! ' + err);
+                    Game.findOne(model, '-_id -__v', function (err,data) {
+                        if (err) return next('Bad request! ' + err);
+                        res.send(data);
+                    });
+                })
+            } else {
+                res.send('Position already occupied!');
+            }
         });
     } else {
-        res.send('Token is not valid!');
+        return next('Bad request!');
     }
+
 });
 
 module.exports = router;
