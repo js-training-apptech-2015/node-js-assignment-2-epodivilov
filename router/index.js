@@ -74,6 +74,8 @@ router.put('/games/:token', function (req, res, next) {
         Game.findOne({token:req.params.token}, function (err,data) {
             if (err) return next('Bad request! ' + err);
 
+            if (data.state.indexOf('player-wins')) return next('Game over');
+
             var state = (req.body.player == 2) ? 'second-player-turn' : 'first-player-turn';
 
             if (state != data.state) {
