@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3b8525aa-7984-4ae3-b26c-e9528fb9723e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/router/index.js" afterPath="$PROJECT_DIR$/router/index.js" />
-    </list>
+    <list default="true" id="3b8525aa-7984-4ae3-b26c-e9528fb9723e" name="Default" comment="" />
     <ignored path="node-js-assignment-2-epodivilov.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
@@ -54,8 +52,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/router/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30739298">
-              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.46303502">
+              <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
               <folding>
                 <element signature="e#671#694#0" expanded="false" />
                 <element signature="e#745#1144#0" expanded="false" />
@@ -322,7 +320,13 @@
       <option name="project" value="LOCAL" />
       <updated>1453893101837</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="change Tie to tie">
+      <created>1453955196905</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1453955196905</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -367,7 +371,8 @@
     <MESSAGE value="Added validation to mogoose shema" />
     <MESSAGE value="The server is fully operational.&#10;Implemented all the methods.&#10;Fully implementing the work reference servers." />
     <MESSAGE value="Add checking the end of the game" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add checking the end of the game" />
+    <MESSAGE value="change Tie to tie" />
+    <option name="LAST_COMMIT_MESSAGE" value="change Tie to tie" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -473,8 +478,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30739298">
-          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.46303502">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding>
             <element signature="e#671#694#0" expanded="false" />
             <element signature="e#745#1144#0" expanded="false" />
