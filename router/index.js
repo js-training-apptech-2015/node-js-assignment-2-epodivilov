@@ -5,7 +5,7 @@ var Utils = require('../utils');
 
 function checkGameOver(fieldPlayer1, fieldPlayer2) {
     var winCombinations = [7,56,448,73,146,252,273,84];
-    var tieCombinations = [127,439,508,475,223,505,502,319];
+    var tieCombinations = [127,223,255,319,383,439,447,475,479,502,503,505,507,508,509,510,511];
     var result;
 
     if (winCombinations.indexOf(fieldPlayer1) != -1) {
@@ -17,7 +17,6 @@ function checkGameOver(fieldPlayer1, fieldPlayer2) {
     }
 
     return result;
-
 }
 
 router.get('/', function (req, res, next) {
