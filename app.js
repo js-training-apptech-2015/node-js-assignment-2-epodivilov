@@ -19,7 +19,7 @@ app.all('/*', function(req, res, next) {
 app.use('/', router);
 
 app.use(function (err, req, res, next) {
-    res.status(err.status || 500).send(err.message);
+    res.status(err.status || 500).send(err);
 });
 
 var port = process.env.PORT || config.port;
