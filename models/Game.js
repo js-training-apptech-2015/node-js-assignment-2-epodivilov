@@ -32,7 +32,6 @@ var Game = new Schema({
     },
     password: {
         type: String,
-        lowercase: true,
         validate: {
             validator: function(value) {
                 return /^([A-Za-z0-9]{1,20})$/.test(value);

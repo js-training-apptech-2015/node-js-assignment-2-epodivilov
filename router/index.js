@@ -62,7 +62,7 @@ router.post('/games', function (req, res, next) {
     });
 
     newGame.save(function(err, model) {
-        if (err) return next('Bad request! ' + err);
+        if (err) return next('Error request! ' + err);
         Game.findOne(model, '-_id -__v', function (err,data) {
             if (err) return next('Bad request! ' + err);
             res.status(201).send(data);
