@@ -55,6 +55,7 @@ router.post('/games', function (req, res, next) {
         field1: '0',
         field2: '0',
         group: req.body.group || 'default',
+        password: req.body.password,
         state: 'first-player-turn',
         token: Utils.generateToken(32),
         type: req.body.type

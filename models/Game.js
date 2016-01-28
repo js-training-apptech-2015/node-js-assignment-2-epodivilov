@@ -30,7 +30,20 @@ var Game = new Schema({
             message: '{VALUE} is not a valid group name!'
         }
     },
-    state: String,
+    password: {
+        type: String,
+        lowercase: true,
+        validate: {
+            validator: function(value) {
+                return /^([A-Za-z0-9]{1,20})$/.test(value);
+            },
+            message: '{VALUE} is not a valid password!'
+        }
+    },
+    state: {
+        type: String,
+        lowercase: true
+    },
     token: {
         type: String,
         unique: true,
