@@ -76,11 +76,13 @@ router.put('/games/:token', function (req, res, next) {
             if (err) return next('Bad request! ' + err);
 
             if (data.state.indexOf('wins') != -1 || data.state.indexOf('tie') != -1) {
-                return next('The game has already finished');
+                return next('The game has already finished.');
             }
 
             if (data.password && !req.body.password) {
-                return next('You must specify a password');
+                return next('You must specify a password!');
+            } else if (data.password != req.body.password) {
+                return next('Wrong password!');
             }
 
             var state = (req.body.player == 2) ? 'second-player-turn' : 'first-player-turn';
