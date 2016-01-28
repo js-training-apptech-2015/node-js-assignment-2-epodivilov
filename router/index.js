@@ -75,6 +75,14 @@ router.put('/games/:token', function (req, res, next) {
         Game.findOne({token:req.params.token}, function (err,data) {
             if (err) return next('Bad request! ' + err);
 
+            if (data.state.indexOf('wins') != -1 || data.state.indexOf('tie') != -1) {
+                return next('The game has already finished');
+            }
+
+            if (data.password && !req.body.password) {
+                return next('You must specify a password');
+            }
+
             var state = (req.body.player == 2) ? 'second-player-turn' : 'first-player-turn';
 
             if (state != data.state) {
