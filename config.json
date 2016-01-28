@@ -1,4 +1,4 @@
 {
-  "dbUrl": "mongodb://root:root@ds047935.mongolab.com:47935/node-js-assignment-2-epodivilov",
+  "dbUri": "mongodb://root:root@ds047935.mongolab.com:47935/node-js-assignment-2-epodivilov",
   "port": 8080
 }

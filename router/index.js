@@ -5,15 +5,15 @@ var Utils = require('../utils');
 
 function checkGameOver(fieldPlayer1, fieldPlayer2) {
     var winCombinations = [7,56,448,73,146,252,273,84];
+    var tieCombinations = [127,439,508,475,223,505,502,319];
     var result;
-    for (var i = 0; i < winCombinations.length; i++) {
-        if (fieldPlayer1 == winCombinations[i]) {
-            result = 'first-player-wins';
-        } else if (fieldPlayer2 == winCombinations[i]) {
-            result = 'second-player-wins';
-        } if ((fieldPlayer1|fieldPlayer2) == 511) {
-            result = 'tie';
-        }
+
+    if (winCombinations.indexOf(fieldPlayer1) != -1) {
+        result = 'first-player-wins';
+    } else if (winCombinations.indexOf(fieldPlayer2) != -1) {
+        result = 'second-player-wins';
+    } if (tieCombinations.indexOf(fieldPlayer1|fieldPlayer2) != -1) {
+        result = 'tie';
     }
 
     return result;
@@ -108,7 +108,7 @@ router.put('/games/:token', function (req, res, next) {
 
                 data.save(function(err, model) {
                     if (err) return next('Bad request! ' + err);
-                    Game.findOne(model, '-_id -__v', function (err,data) {
+                    Game.findOne(model, '-_id -__v -password', function (err,data) {
                         if (err) return next('Bad request! ' + err);
                         res.send(data);
                     });
