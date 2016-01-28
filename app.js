@@ -18,6 +18,10 @@ app.all('/*', function(req, res, next) {
 });
 app.use('/', router);
 
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500).send(err.message);
+});
+
 var port = process.env.PORT || config.port;
 app.listen(port, function () {
     console.log('Server start. Server available to http://' + ip.address() + ':' + port);
