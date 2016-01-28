@@ -20,7 +20,7 @@ function checkGameOver(fieldPlayer1, fieldPlayer2) {
 }
 
 router.get('/', function (req, res, next) {
-    res.end('end');
+    res.sendFile('index.html');
 });
 
 router.get('/games', function (req, res, next) {

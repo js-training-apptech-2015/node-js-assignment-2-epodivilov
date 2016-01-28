@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Tic-tac-toe server</title>
+
+    <style type="text/css">
+        body {
+            padding-top: 30pt;
+        }
+        table {
+            margin: 5px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>Method</th>
+                    <th>Route</th>
+                    <th>Request example</th>
+                    <th>Response example</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>games/</td>
+                    <td></td>
+                    <td>
+<pre class="prettyprint">
+[
+    {
+        field1: 1,
+        field2: 0,
+        group: "default",
+        state: "second-player-turn",
+        token: "56622092538803062141679750982919",
+        type: 0
+    },
+    {
+        field1: 355,
+        field2: 156,
+        group: "default",
+        state: "tie",
+        token: "05338215319419894375045155253923",
+        type: 0
+    }
+]
+</pre>
+                    </td>
+                    <td>Returns a list of all games</td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>games/:token</td>
+                    <td></td>
+                    <td>
+<pre class="prettyprint">
+{
+    field1: 0,
+    field2: 0,
+    group: "default",
+    state: "first-player-turn",
+    token: "38124801799320377475158082655827",
+    type: 0
+}
+</pre>
+                    </td>
+                    <td>Returns information about specific game</td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>games/</td>
+                    <td>
+<pre class="prettyprint">
+{
+    "type":0,
+    "group":"mygroup",
+    "password":"Qwe123"
+}
+</pre>
+                    </td>
+                    <td>
+<pre class="prettyprint">
+{
+    "field1": 0
+    "field2": 0
+    "group": "mygroup"
+    "state": "first-player-turn"
+    "token": "52931468109806872735503961456527"
+    "type": 0
+}
+</pre>
+                    </td>
+                    <td>Create new game. Fields 'group' & 'password' - is optional. </td>
+                </tr>
+                <tr>
+                    <td>PUT</td>
+                    <td>games/:token</td>
+                    <td>
+<pre class="prettyprint">
+{
+    "player":1,
+    "position":0,
+    "password":"Qwe123"
+}
+</pre>
+                    </td>
+                    <td>
+<pre class="prettyprint">
+{
+    "field1": 1
+    "field2": 0
+    "group": "mygroup"
+    "state": "second-player-turn"
+    "token": "52931468109806872735503961456527"
+    "type": 0
+}
+</pre>
+                    </td>
+                    <td>Executes player's turn. <br>If your game create with password, you must send field "password".</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+</body>
+</html>

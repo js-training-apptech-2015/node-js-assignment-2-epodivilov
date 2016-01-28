@@ -5,12 +5,13 @@ var bodyParser = require('body-parser');
 var config = require('./config.json');
 var router = require('./router');
 
-var app = express();
-
 var port = process.env.PORT || config.port;
 var dbUri = process.env.MONGO_URI || config.dbUri;
 mongoose.connect(dbUri);
 
+var app = express();
+app.locals.title = 'Tic-tac-toe server';
+app.use(express.static(__dirname + '/public'));
 
 app.all('/*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
