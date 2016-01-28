@@ -25,7 +25,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/games', function (req, res, next) {
     if(req.query && Utils.isValidQuery(req.query, Game)) {
-        Game.find(req.query, '-_id -__v', function (err,data) {
+        Game.find(req.query, '-_id -__v -password', function (err,data) {
             if (err) return next('Bad request! ' + err);
             if (data.length) {
                 res.send(data);
@@ -39,7 +39,7 @@ router.get('/games', function (req, res, next) {
 });
 
 router.get('/games/:token', function (req, res, next) {
-    Game.findOne({token:req.params.token}, '-_id -__v', function (err,data) {
+    Game.findOne({token:req.params.token}, '-_id -__v -password', function (err,data) {
         if (err) return next('Bad request! ' + err);
         if (data) {
             res.send(data);
@@ -62,7 +62,7 @@ router.post('/games', function (req, res, next) {
 
     newGame.save(function(err, model) {
         if (err) return next('Error request! ' + err);
-        Game.findOne(model, '-_id -__v', function (err,data) {
+        Game.findOne(model, '-_id -__v -password', function (err,data) {
             if (err) return next('Bad request! ' + err);
             res.status(201).send(data);
         });
