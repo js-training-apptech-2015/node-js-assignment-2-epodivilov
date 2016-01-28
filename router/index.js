@@ -12,7 +12,7 @@ function checkGameOver(fieldPlayer1, fieldPlayer2) {
         } else if (fieldPlayer2 == winCombinations[i]) {
             result = 'second-player-wins';
         } if ((fieldPlayer1|fieldPlayer2) == 511) {
-            result = 'Tie';
+            result = 'tie';
         }
     }
 
@@ -73,8 +73,6 @@ router.put('/games/:token', function (req, res, next) {
     if ((req.body.position >= 0 && req.body.position <= 8) && (req.body.player == 1 || req.body.player == 2)) {
         Game.findOne({token:req.params.token}, function (err,data) {
             if (err) return next('Bad request! ' + err);
-
-            //if (data.state.indexOf('player-wins')) return next('Game over');
 
             var state = (req.body.player == 2) ? 'second-player-turn' : 'first-player-turn';
 
